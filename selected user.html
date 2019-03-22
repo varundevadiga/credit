@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Selected user</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
+	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
+	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+	<header id="home">
+		<div class="bg-img" style="background-image: url('./img/background1.jpg');">
+			<div class="overlay"></div>
+		</div>
+		<div class="home-wrapper">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-10 col-md-offset-1">
+						<div class="home-content">
+                        <h2><b>User Details</b></h2>
+                        <div id="name" style="color:orange"><strong>Name :</strong></div>
+                        <div id="email" style="color:orange"><strong>Email :</strong></div>
+                        <div id="credit" style="color: orange"><strong>Current credit :</strong></div>
+                        <div class="btn">
+                        	<button  name="submit" allign = "center" onclick="myFunction()" id="all"><b>Transfer Credit</b></button><br>
+                        	<a href="one.html"><button class="base" name="submit" allign="center"><b>Back</b></button></a>
+                        </div>
+
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+<script>
+  
+  var config = {
+    apiKey: "AIzaSyDkeKz7a7Gmd5zUohVOr4fmUSjIqmMzxqo",
+    authDomain: "credit-management-ec33d.firebaseapp.com",
+    databaseURL: "https://credit-management-ec33d.firebaseio.com",
+    projectId: "credit-management-ec33d",
+    storageBucket: "credit-management-ec33d.appspot.com",
+    messagingSenderId: "997232831630"
+  };
+  firebase.initializeApp(config);
+  var queryString = decodeURIComponent(window.location.search);
+  queryString = queryString.substring(1);
+  var queries = queryString.split("=");
+  let userId = 'user' + queries[1];
+  firebase.database().ref("/user/"+ userId).once("value").then(function(snapshot){
+
+  var data = snapshot.val();
+  console.log(data);
+  var name_val = snapshot.val().name;
+  var email_val = snapshot.val().email;
+  var credit_val = snapshot.val().credit;
+  $("#name").append(name_val);
+  $("#email").append(email_val);
+  $("#credit").append(credit_val);
+  if(credit_val ==0)
+    swal({text:'Do not have enough credit', icon:'error'});  
+  });
+
+</script>
+<script
+  		src="https://code.jquery.com/jquery-3.3.1.js"
+  		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  		crossorigin="anonymous"></script>
+  		<script>
+	function myFunction(){
+			var querystring = "?para1=" + queries[1];
+			window.location.href =  "two.html" + querystring;
+		}
+</script>
+
+
+</body>
+</html>

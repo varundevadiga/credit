@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HTML Template</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
+	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
+	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+	<header id="home">
+	
+		<div class="bg-img" style="background-image: url('./img/background1.jpg');">
+			<div class="overlay"></div>
+		</div>
+	x
+		<div class="home-wrapper">
+			<div class="container">
+				<div class="row">
+
+				
+					<div class="col-md-10 col-md-offset-1">
+						<div class="home-content">
+							
+							<h2>Welcome user</h2>			
+						</div>
+						<div>
+							<h4 id="none">Select user to transfer:</h4>
+							<div class="blue">
+							  <button class="submit-btn"  onclick="myFunction('1')" name="queryString"><b id="n">user1</b></button>
+							  <button class="submit-btn"  onclick="myFunction('2')" name="queryString"><b id="n">user2</b></button>
+							  <button class="submit-btn"  onclick="myFunction('3')" name="queryString"><b id="n">user3</b></button>
+							  <button class="submit-btn"  onclick="myFunction('4')" name="queryString"><b id="n">user4</b></button>
+							  <button class="submit-btn"  onclick="myFunction('5')" name="queryString"><b id="n">user5</b></button>	
+							  <button class="submit-btn"  onclick="myFunction('6')" name="queryString"><b id="n">user6</b></button>	
+							  <button class="submit-btn"  onclick="myFunction('7')" name="queryString"><b id="n">user7</b></button>	
+							  <button class="submit-btn"  onclick="myFunction('8')" name="queryString"><b id="n">user8</b></button>	
+							  <button class="submit-btn"  onclick="myFunction('9')" name="queryString"><b id="n">user9</b></button>	
+							  <button class="submit-btn"  onclick="myFunction('10')" name="queryString"><b id="n">user10</b></button>
+							</div>
+							<div class="link">
+								<a href="transfer.html"><button class="close-btn" name="submit" allign="centre"><b>View Transfer Table</b></button></a>
+								
+							</div>
+					</div.
+				</div>
+			</div>
+		</div>
+	</header>
+				</div>
+			</div>
+		</div.
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+  	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+    	 var takingUserId;
+    	 var  givingUserId;
+    	 var  take_Credit_Val;
+    	 var give_credit_val;
+    	 function myFunction(num){
+    	 	var queryString = decodeURIComponent(window.location.search);
+            queryString = queryString.substring(1);
+            var queries = queryString.split("=");
+            console.log(queries)
+            if(num ==queries[1]){
+            	swal({text:'can\'t transfer credit to yourself',icon:'error'});
+
+            }
+            else{
+            	var config = {
+                                apiKey: "AIzaSyDkeKz7a7Gmd5zUohVOr4fmUSjIqmMzxqo",
+                                authDomain: "credit-management-ec33d.firebaseapp.com",
+                                databaseURL: "https://credit-management-ec33d.firebaseio.com",
+                                projectId: "credit-management-ec33d",
+                                storageBucket: "credit-management-ec33d.appspot.com",
+                                messagingSenderId: "997232831630"
+                             };
+                              firebase.initializeApp(config);
+
+                              givingUserId = 'user' + queries[1];
+                              takingUserId = 'user' + num;
+                              firebase.database().ref("/user/"+ givingUserId).once("value").then(function(snapshot){
+                              var data = snapshot.val();
+                              console.log(data);
+                              give_credit_val = snapshot.val().credit;
+
+                              firebase.database().ref("/user/"+ takingUserId).once("value").then(function(snapshot){
+                              var data = snapshot.val();
+                              console.log(data);
+                              take_credit_val = snapshot.val().credit;
+
+                              var new_credit = take_credit_val + give_credit_val;
+                              console.log(new_credit);
+                              console.log(take_credit_val);
+                              console.log(give_credit_val);
+                              firebase.database().ref("user/" + takingUserId).update({
+                              	credit: new_credit
+
+                              });
+                              firebase.database().ref("user/" + givingUserId).update({
+                              	credit: 0
+
+                              });
+                              swal({text:'success!', icon:'success'}).then(okay =>{
+                              	if(okay)
+                              	  {
+                              	   window.location.href="one.html";
+                                  }
+ 
+                                });
+                             });
+                          });
+
+                          }}
+
+
+  </script>
+
+  <script src="js/bootstrap.min.js"></script>
+            <script src="js/3.1.1 min.js"></script>
+          <script src="js/script.js"></script> 
+          <script type="text/javascript" src="js/jquery.min.js"></script> 
+
+</body>
+
+</html>
